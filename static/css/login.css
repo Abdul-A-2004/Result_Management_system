@@ -1,0 +1,54 @@
+.card {
+    width: 360px;
+    padding: 40px;
+    margin: 19vh auto;
+    border-radius: 20px;
+    background: #6F00FF;
+}
+
+
+.btn {
+    width: 100px;
+    margin: 20px auto;
+}
+
+.form-title {
+    margin: auto;
+    color: white;
+}
+
+.user-box {
+    position: relative;
+}
+
+.user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+
+.user-box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.user-box input:focus~label,
+.user-box input:valid~label {
+    top: -20px;
+    left: 0;
+    color: #bdb8b8;
+    font-size: 15px;
+}
+

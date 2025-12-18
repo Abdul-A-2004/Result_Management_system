@@ -1,0 +1,25 @@
+.navbar{
+    background: #6F00FF;
+}
+.custom-offcanvas {
+    background-color: #6F00FF !important;
+    color: white;
+}
+.custom-offcanvas .nav-link,
+.custom-offcanvas .dropdown-item,
+.custom-offcanvas .offcanvas-title {
+    color: white;
+}
+
+.custom-offcanvas .nav-link:hover,
+.custom-offcanvas .dropdown-item:hover {
+    color: #ffd6ff;
+}
+
+.custom-offcanvas .btn-close {
+    filter: invert(1);
+}
+
+.custom-links{
+    color: black;
+}

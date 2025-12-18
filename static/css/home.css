@@ -1,0 +1,78 @@
+/* Base */
+body {
+    background-color: #f8f9fa;
+}
+
+/* Hero section */
+.main-container {
+    background: linear-gradient(135deg, #6f00ff, #9b5cff);
+    color: white;
+    width: 100%;
+    min-height: 100vh;
+    padding: 80px 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card hover animation */
+.card {
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* Collapse container */
+.custom-collapse {
+    width: 100%;
+    margin-top: 30px;
+    
+}
+
+/* Card body */
+.card-body {
+    padding: 28px;
+}
+
+/* Form */
+.roll-form {
+    margin-top: 15px;
+}
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+/* Feature cards */
+.custom-card {
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Responsive text */
+@media (max-width: 768px) {
+    .main-container {
+        padding: 60px 15px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+}

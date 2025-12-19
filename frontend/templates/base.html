@@ -19,10 +19,11 @@
 <body>
 
   {% block navbar %}
+  
 
   <nav class="navbar fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Result System</a>
+      <a class="navbar-brand" href="{{% url 'home_url/'%}}">Result System</a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
         aria-controls="offcanvasNavbar">
@@ -39,20 +40,19 @@
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'home_url/' %}">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Result</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'login_url_name' %}">login</a>
+              <a class="nav-link" href="{% url 'login_url_name/' %}">login</a>
             </li>
           </ul>
         </div>
       </div>
     </div>
   </nav>
-
 
 
   {% endblock %}

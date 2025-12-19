@@ -1,28 +1,30 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/login.css' %}">
-{% endblock  %}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+{% endblock %}
 
 {% block content %}
+  <form action="{% url 'login_fun_name' %}" method="POST" class="card">
+    {% csrf_token %}
 
-<form action="{% url 'login_fun_name' %}" method="POST" class="card">
-       {% csrf_token %}
-
-       <h2 class="form-title mb-3">Login</h2>
-       <div class="user-box">
-              <input type="text" class="mb-3" name="username" required>
-              <label>Username</label>
-       </div>
-       <div class="user-box">
-              <input type="password" class="mb-3" name="password" required>
-              <label>Password</label>
-       </div>
-       <div class="user-box">
-              <input type="text" class="mb-3" name="role" required>
-              <label>Role (Staff or Student)</label>
-       </div>
-       <button type="submit" class="btn btn-outline-light">Login</button>
-</form>
+    <h2 class="form-title mb-3">Login</h2>
+    <div class="user-box">
+      <input type="text" class="mb-3" name="username" required />
+      <label>Username</label>
+    </div>
+    <div class="user-box">
+      <input type="password" class="mb-3" name="password" required />
+      <label>Password</label>
+    </div>
+    <div class="user-box">
+      <input type="text" class="mb-3" name="role" required />
+      <label>Role (Staff, Student, Admin)</label>
+    </div>
+    <div class="error-message">
+      <p>{{ error }}</p>
+    </div>
+    <button type="submit" class="btn btn-outline-light">Login</button>
+  </form>
 {% endblock %}

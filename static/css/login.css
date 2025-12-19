@@ -9,7 +9,7 @@
 
 .btn {
     width: 100px;
-    margin: 20px auto;
+    margin: auto;
 }
 
 .form-title {
@@ -52,3 +52,6 @@
     font-size: 15px;
 }
 
+.error-message{
+    color: red;
+}

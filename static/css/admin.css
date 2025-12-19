@@ -1,0 +1,103 @@
+.student-list {
+    margin: 100px auto;
+}
+
+.table {
+    width: 90vw;
+    margin: auto;
+
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 90;
+    overflow-y: auto;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-student {
+    position: absolute;
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+    border-radius: 16px;
+    border: none;
+    background: #ffffff;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.6s ease-in-out;
+    top: 40px;
+    z-index: 10;
+}
+
+.form-title {
+    text-align: center;
+    font-weight: 700;
+    color: #6f00ff;
+    margin-bottom: 25px;
+}
+
+.add-student .form-control {
+    margin-bottom: 15px;
+    border-radius: 10px;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+    font-size: 15px;
+}
+
+.add-student .form-control:focus {
+    border-color: #6f00ff;
+    box-shadow: 0 0 0 0.2rem rgba(111, 0, 255, 0.25);
+}
+
+.add-student label {
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 6px;
+}
+
+.add-student button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #6f00ff, #9b5cff);
+    border: none;
+    color: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-student button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(111, 0, 255, 0.4);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn-add {
+    z-index: 100;
+    position: fixed;
+    bottom: 0;
+    margin: 30px;
+    right: 0;
+}

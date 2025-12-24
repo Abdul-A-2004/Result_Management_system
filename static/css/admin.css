@@ -1,11 +1,11 @@
 .student-list {
-    margin: 100px auto;
+    margin: 50px;
+    overflow: scroll;
 }
 
 .table {
-    width: 90vw;
+    width: 140vw;
     margin: auto;
-
 }
 
 .overlay {
@@ -97,7 +97,7 @@
 .btn-add {
     z-index: 100;
     position: fixed;
-    bottom: 0;
+    bottom: 20px;
     margin: 30px;
     right: 0;
 }

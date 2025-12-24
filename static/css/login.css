@@ -6,7 +6,6 @@
     background: #6F00FF;
 }
 
-
 .btn {
     width: 100px;
     margin: auto;
@@ -21,7 +20,7 @@
     position: relative;
 }
 
-.user-box input {
+.user-box input ,.user-box select{
     width: 100%;
     padding: 10px 0;
     font-size: 16px;
@@ -45,11 +44,16 @@
 }
 
 .user-box input:focus~label,
-.user-box input:valid~label {
+.user-box input:valid~label{
     top: -20px;
     left: 0;
     color: #bdb8b8;
     font-size: 15px;
+}
+
+option{
+    background: #6F00FF;
+    border-radius: 20px;
 }
 
 .error-message{

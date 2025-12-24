@@ -5,57 +5,58 @@
 <link rel="stylesheet" href="{% static 'css/admin.css' %}">
 {% endblock %}
 
+{% block navbar %}
 
-  {% block navbar %}
+<nav class="navbar fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home_url_name'%}">Result System</a>
 
-  <nav class="navbar fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="{{ url 'home_url/' }}">Result System</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-        aria-controls="offcanvasNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <div class="offcanvas offcanvas-end custom-offcanvas" tabindex="-1" id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
 
-      <div class="offcanvas offcanvas-end custom-offcanvas" tabindex="-1" id="offcanvasNavbar"
-        aria-labelledby="offcanvasNavbarLabel">
-        <div class="offcanvas-header">
-
-          <button type="button" class="btn-close justify-item-end" data-bs-dismiss="offcanvas"
-            aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Result</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Exam</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Subjects</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'login_url_name' %}">login</a>
-            </li>
-          </ul>
-        </div>
+        <button type="button" class="btn-close justify-item-end" data-bs-dismiss="offcanvas"
+          aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Result</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Exam</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Subjects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Staff</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login_url_name' %}">login</a>
+            <a class="nav-link" href="{% url 'logout_url_name' %}">logout</a>
+          </li>
+        </ul>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
-
-  {% endblock %}
-
+{% endblock %}
 
 {% block content %}
 
-<div class="student-list">
+<div class="table-responsive student-list">
 
-  <table class="table mt-5">
+  <table class="table table-bordered align-middle mt-5">
 
     <tbody>
       <tr>
@@ -63,6 +64,7 @@
         <th scope="col">Name</th>
         <th scope="col">Roll No</th>
         <th scope="col">Academic Year</th>
+        <th scope="col">Email</th>
         <th scope="col">Gender</th>
         <th scope="col">Phone No</th>
         <th scope="col">Address</th>
@@ -76,20 +78,21 @@
         <td>{{i.student_name_field}}</td>
         <td>{{i.student_roll_num_field}}</td>
         <td>{{i.academic_year_field}}</td>
+        <td>{{i.student_email_field}}</td>
         <td>{{i.student_gender_field}}</td>
         <td>{{i.student_phone_field}}</td>
         <td>{{i.student_address_field}}</td>
         <td>{{i.department_name_field}}</td>
         <td>{{i.student_dob_field}}</td>
         <td>
-          <button type="button" class="btn btn-success">Update</button>
-          <button type="button" class="btn btn-danger">Delete </button>
+          <a href="" class="btn btn-success">Update</a>
+          <a href="{% url " delete_student_url_name" i.id %}" class="btn btn-danger">Delete </a>
+          {% comment %} {% url "update_student_url_name" i.id %} {% endcomment %}
         </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
-
 </div>
 
 {% if messages %}
@@ -99,48 +102,50 @@
   <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 </div>
 {% endfor %}
-
 {% endif %}
 
 <div class="overlay collapse" id="collapseExample">
 
-<div class="container">
-  <form action="{% url 'add_student_url_name' %}" method="post" class="card add-student m-5">
-    {% csrf_token %}
+  <div class="container">
+    <form action="{% url 'add_student_url_name' %}" method="post" class="card add-student m-5">
+      {% csrf_token %}
 
-    <h1 class="form-title">Add Student</h1>
+      <h1 class="form-title">Add Student</h1>
 
-    <input required type="text" name="name-input" placeholder="Name" class="form-control">
+      <input required type="text" name="name-input" placeholder="Name" class="form-control">
 
-    <input required type="text" name="roll-no-input" placeholder="Roll Number" class="form-control">
+      <input required type="text" name="roll-no-input" placeholder="Roll Number" class="form-control">
+      <input required type="text" name="email-input" placeholder="Email" class="form-control">
 
-    <input required type="text" name="academic-year-input" placeholder="Academic Year" class="form-control">
-    <label>Date of Birth</label>
-    <input required type="date" name="dob-input" placeholder="Date Of Birth" class="form-control">
+      <input required type="text" name="academic-year-input" placeholder="Academic Year" class="form-control">
+      <label>Date of Birth</label>
+      <input required type="date" name="dob-input" placeholder="Date Of Birth" class="form-control">
 
-    <select name="gender-input" class="form-control" required>
-      <option value="">-- Select Gender --</option>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-      <option value="Others">Others</option>
-    </select>
+      <div class="select-option">
+        <select name="gender-input" class="form-control" required>
+          <option value="">-- Select Gender --</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Others">Others</option>
+        </select>
+      </div>
 
-    <select name="department-input" class="form-control" required>
-      <option value="">-- Select Department --</option>
-      {% for i in department_data %}
-      <option value="{{ i.id }}">
-        {{ i.department_name_field }}
-      </option>
-      {% endfor %}
-    </select>
+      <select name="department-input" class="form-control" required>
+        <option value="">-- Select Department --</option>
+        {% for i in department_data %}
+        <option value="{{ i.id }}">
+          {{ i.department_name_field }}
+        </option>
+        {% endfor %}
+      </select>
 
-    <input required type="tel" name="phone-no-input" placeholder="Phone Number" class="form-control">
+      <input required type="tel" name="phone-no-input" placeholder="Phone Number" class="form-control">
 
-    <input required type="text" name="address-input" placeholder="Address" class="form-control">
+      <input required type="text" name="address-input" placeholder="Address" class="form-control">
 
-    <button class="btn btn-light" type="submit">Add</button>
-  </form>
-</div>
+      <button class="btn btn-light" type="submit">Add</button>
+    </form>
+  </div>
 
 
 </div>

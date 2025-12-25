@@ -9,5 +9,5 @@ urlpatterns = [
     path("admin_panel_url/", admin_fun, name="admin_panel_url_name"),
     path("add_student_url/", add_student_fun, name="add_student_url_name"),
     path("delete_student_url/<int:id>", delete_student_fun, name="delete_student_url_name"),
-    path("update_student_url/<int:id>",update_student_fun, name="update_student_url_name"),
+    # path("update_student_url/<int:id>",update_student_fun, name="update_student_url_name"),
 ]

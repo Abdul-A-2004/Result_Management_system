@@ -14,17 +14,33 @@ def logout_fun(request):
     return redirect("login_url_name")
 
 def admin_fun(request):
+
     if request.session.get("role") != "admin":
         return redirect("login_url_name")
-
+    
     department_data = Department.objects.all()
     student_data = Student_info.objects.filter(is_active=0)
 
     return render(request,"admin-panel.html",{"data": student_data,"department_data": department_data})
+def update_info_fun(request, id):
+    update_student = Student_info.objects.get(id=id)
+
+    department_data = Department.objects.all()
+    student_data = Student_info.objects.filter(is_active=0)
+
+    return render(
+        request,
+        "admin-panel.html",
+        {
+            "data": student_data,
+            "department_data": department_data,
+            "update": update_student,  
+        }
+    )
+
 
 def login_form_fun(request):
     
-
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -56,8 +72,8 @@ def login_form_fun(request):
 
     return redirect("login_url_name")
 
-
 def add_student_fun(request):
+    
     if request.method == "POST":
         try:
             phone_no = request.POST.get("phone-no-input", "").strip()
@@ -81,7 +97,6 @@ def add_student_fun(request):
             phone_last_six = phone_no[-6:]
             username = f"{first_name}@{roll_no_last_six}"
             password = f"{phone_last_six}@{dob_year}"
-
 
             if User.objects.filter(username_field=username).exists():
                 messages.error(request, "Username already exists")
@@ -120,7 +135,6 @@ def add_student_fun(request):
             messages.error(request, "Student not added")
             return redirect("admin_panel_url_name")
 
-
 def delete_student_fun(request,id):
     activate = Student_info.objects.get(id = id)
     activate.is_active = -1
@@ -128,11 +142,10 @@ def delete_student_fun(request,id):
     return redirect("admin_panel_url_name")
 
 def update_student_fun(request,id):
-    update = Student_info.objects.get(id = id)
     if request.method == "POST":
         try:
             department_name = request.POST.get("department-input")
-            department_id = Department.objects.get (id= department_name)
+            department_id = Department.objects.get (id = department_name)
             update = Student_info.objects.update(
                 student_name_field = request.POST.get("name-input"),
                 student_roll_num_field = request.POST.get("roll-no-input"),
@@ -149,10 +162,7 @@ def update_student_fun(request,id):
             messages.success(request, "Student Updated successfully")
             return redirect("admin_panel_url_name")
         
-
         except Exception as e: 
 
             messages.error(request, "Student not Updated")
             return redirect("admin_panel_url_name")
-
-    

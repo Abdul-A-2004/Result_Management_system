@@ -101,3 +101,9 @@
     margin: 30px;
     right: 0;
 }
+.btn-close{
+    z-index: 1000;
+    position: absolute;
+    top: 70px;
+    right: 10px;
+}

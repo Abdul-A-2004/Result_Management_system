@@ -83,9 +83,8 @@
         <td>{{i.department_name_field}}</td>
         <td>{{i.student_dob_field}}</td>
         <td>
-          <a href="" class="btn btn-success" data-bs-target="#collapseExample" data-bs-toggle="collapse">Update</a>
+          <a href="{% url 'update_info_url_name' i.id %}" class="btn btn-success" onclick="update_heading()" data-bs-target="#collapseExample" data-bs-toggle="collapse">Update</a>
           <a href="{% url 'delete_student_url_name' i.id %}" class="btn btn-danger">Delete </a>
-          {% comment %} {% url "update_student_url_name" i.id %} {% endcomment %}
         </td>
       </tr>
       {% endfor %}
@@ -105,48 +104,100 @@
 <div class="overlay collapse" id="collapseExample">
 
   <div class="container">
+      <button type="button" class="btn-close" data-bs-target="#collapseExample" data-bs-toggle="collapse"></button>
+
     <form action="{% url 'add_student_url_name' %}" method="post" class="card add-student m-5">
       {% csrf_token %}
 
-      <h1 class="form-title">{{heading}}</h1>
+      <h1 class="form-title" id="title">{% if update %}Update Student{% endif %}</h1>
 
-      <input required type="text" name="name-input" placeholder="Name" class="form-control">
-
-      <input required type="text" name="roll-no-input" placeholder="Roll Number" class="form-control">
-      <input required type="text" name="email-input" placeholder="Email" class="form-control">
-
-      <input required type="text" name="academic-year-input" placeholder="Academic Year" class="form-control">
+      <input required type="text" id="name" name="name-input" placeholder="Name" class="form-control">
+      <input required type="text" id="roll_no" name="roll-no-input" placeholder="Roll Number" class="form-control">
+      <input required type="text" id="email" name="email-input" placeholder="Email" class="form-control">
+      <input required type="text" id="academic-year" name="academic-year-input" placeholder="Academic Year" class="form-control">
       <label>Date of Birth</label>
-      <input required type="date" name="dob-input" placeholder="Date Of Birth" class="form-control">
+      <input required type="date" id="dob" name="dob-input" placeholder="Date Of Birth" class="form-control">
 
       <div class="select-option">
-        <select name="gender-input" class="form-control" required>
-          <option value="">-- Select Gender --</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Others">Others</option>
+        <select  name="gender-input" class="form-control" required>
+          <option id="gender" value="">-- Select Gender --</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="others">Others</option>
         </select>
       </div>
 
-      <select name="department-input" class="form-control" required>
-        <option value="">-- Select Department --</option>
+      <select  name="department-input" id="department" class="form-control" required>
+        <option  value="">-- Select Department --</option>
         {% for i in department_data %}
-        <option value="{{ i.id }}">
+        <option value="{{ i.id }}"
+          {% if update and update.depart_name_field.id == d.id %}
+          selected
+          {% endif %}
+        >
           {{ i.department_name_field }}
         </option>
         {% endfor %}
       </select>
 
-      <input required type="tel" name="phone-no-input" placeholder="Phone Number" class="form-control">
+      <input id="phone-no" required type="tel" name="phone-no-input" placeholder="Phone Number" class="form-control">
 
-      <input required type="text" name="address-input" placeholder="Address" class="form-control">
+      <input id="address" required type="text" name="address-input" placeholder="Address" class="form-control">
 
       <button class="btn btn-light" type="submit">Add</button>
     </form>
   </div>
-
-
 </div>
 
-<button class="btn btn-add btn-primary" data-bs-target="#collapseExample" data-bs-toggle="collapse">Add Student</button>
+
+
+<button class="btn btn-add btn-primary" onclick="add_heading()" data-bs-target="#collapseExample" data-bs-toggle="collapse">Add Student</button>
 {% endblock %}
+
+{% block js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  {% if update %}
+    new bootstrap.Collapse(
+      document.getElementById("collapseExample"),
+      { toggle: false }
+    );
+
+    document.getElementById("title").innerHTML = "Update Student";
+
+    document.getElementById("name").value =
+      "{{ update.student_name_field|escapejs }}";
+
+    document.getElementById("roll_no").value =
+      "{{ update.student_roll_num_field|escapejs }}";
+
+    document.getElementById("email").value =
+      "{{ update.student_email_field|escapejs }}";
+    
+    document.getElementById("academic-year").value =
+      "{{ update.academic_year_field|escapejs }}";
+    
+      document.getElementById("dob").value =
+      "{{ update.student_dob_field|escapejs }}";
+        
+    document.getElementById("phone-no").value =
+      "{{ update.student_phone_field|escapejs }}";
+
+    document.getElementById("address").value =
+      "{{ update.student_address_field|escapejs }}";
+
+    document.querySelector(".add-student").action =
+      "{% url 'update_student_url_name' update.id %}";
+  {% endif %}
+});
+
+function add_heading() {
+  document.getElementById("title").innerHTML = "Add Student";
+  document.querySelector(".add-student").reset();
+  document.querySelector(".add-student").action =
+    "{% url 'add_student_url_name' %}";
+}
+</script>
+{% endblock %}
+

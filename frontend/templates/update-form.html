@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% endblock  %}
+
+{% block content %}
+
+  <div class="container">
+
+    <form action="{% url 'update_info_url_name' update.id %}" method="post" class="card add-student m-5">
+      {% csrf_token %}
+
+      <h1 class="form-title" id="title">Update Student</h1>
+
+      <input required value="{{update.student_name_field}}" type="text" name="name-input" placeholder="Name" class="form-control">
+      <input required value="{{update.student_roll_num_field}}" type="text" name="roll-no-input" placeholder="Roll Number" class="form-control">
+      <input required value="{{update.student_email_field}}" type="text" name="email-input" placeholder="Email" class="form-control">
+      <input required value="{{update.academic_year_field}}" type="text" name="academic-year-input" placeholder="Academic Year" class="form-control">
+      <label>Date of Birth</label>
+      <input required type="date" value="{{update.student_dob_field|date:"Y-m-d"}}" name="dob-input" placeholder="Date Of Birth" class="form-control">
+
+      <div class="select-option">
+        <select  name="gender-input" class="form-control" required>
+          <option value="">-- Select Gender --</option>
+          <option value="male" {% if update.student_gender_field == "male" or update.student_gender_field == "Male" %}selected{% endif %} >Male</option>
+          <option value="female" {% if update.student_gender_field == "female" or update.student_gender_field == "Female" %}selected{% endif %}>Female</option>
+          <option value="others" {% if update.student_gender_field == "others" or update.student_gender_field == "Others" %}selected{% endif %}>Others</option>
+        </select>
+      </div>
+
+      <select  name="department-input" id="department" class="form-control" required>
+        <option  value="">-- Select Department --</option>
+        {% for i in department_data %}
+        <option value="{{ i.id }}" {% if update.department_name_field.id == i.id %}selected{% endif %}>
+          {{ i.department_name_field }}
+        </option>
+        {% endfor %}
+      </select>
+
+      <input required  value="{{update.student_phone_field}}" type="tel" name="phone-no-input" placeholder="Phone Number" class="form-control">
+
+      <input required value="{{update.student_address_field}}" type="text" name="address-input" placeholder="Address" class="form-control">
+
+      <button class="btn btn-light" type="submit">Update</button>
+    </form>
+  </div>
+
+
+{% endblock  %}

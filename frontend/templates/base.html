@@ -47,7 +47,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'login_url_name' %}">login</a>
-              <a class="nav-link" href="{% url 'logout_url_name' %}">logout</a>
+           {% block logout %} <a class="nav-link" href="{% url 'logout_url_name' %}">logout</a>{% endblock  %}
             </li>
           </ul>
         </div>

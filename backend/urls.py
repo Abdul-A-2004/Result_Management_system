@@ -10,4 +10,6 @@ urlpatterns = [
     path("add_student_url/", add_student_fun, name="add_student_url_name"),
     path("delete_student_url/<int:id>", delete_student_fun, name="delete_student_url_name"),
     path("update_info_url/<int:id>", update_info_fun, name="update_info_url_name"),
+    path("recover_student_url/<int:id>", recover_student_fun, name="recover_student_url_name"),
+    path("deleted_student_list_fun_url", deleted_student_list_fun, name = "deleted_student_list_fun_url_name")
 ]

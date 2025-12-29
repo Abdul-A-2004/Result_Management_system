@@ -1,3 +1,4 @@
-function add_heading() {
-  document.getElementById("title").innerHTML = "Add Student";
+
+function deleted_student_list(){
+
 }

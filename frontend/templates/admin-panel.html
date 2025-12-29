@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/admin.css' %}">
 {% endblock %}
@@ -146,9 +145,10 @@
 </div>
 
 
-<button class="btn btn-add btn-primary" onclick="add_heading()" data-bs-target="#collapseExample" data-bs-toggle="collapse">Add Student</button>
+<button class="btn btn-add btn-primary" data-bs-target="#collapseExample" data-bs-toggle="collapse">Add Student</button>
+<a href="{% url 'deleted_student_list_fun_url_name' %}" class="btn btn-recovery btn-danger">Deleted Student</a>
 {% endblock %}
 
-{% block js %}
+{% comment %} {% block js %}
 <script src="{% static 'js/scripts.js' %}"></script>
-{% endblock %}
+{% endblock %} {% endcomment %}

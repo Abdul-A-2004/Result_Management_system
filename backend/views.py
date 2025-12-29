@@ -16,14 +16,14 @@ def logout_fun(request):
     return redirect("login_url_name")
 
 def admin_fun(request):
-
     if request.session.get("role") != "admin":
         return redirect("login_url_name")
-    
+
     department_data = Department.objects.all()
     student_data = Student_info.objects.filter(is_active=0)
 
     return render(request,"admin-panel.html",{"data": student_data,"department_data": department_data})
+
 def update_info_fun(request, id):
 
     update_student = Student_info.objects.get(id=id)
@@ -123,35 +123,37 @@ AH College of Arts and Science""",recipient_list=[email],from_email="harishabdul
 def login_form_fun(request):
     
     if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        role = request.POST.get("role")
-        active = 0
-        user = User.objects.filter(
-            username_field=username,
-            password_field=password,
-            role_field=role,
-            is_active = active 
-        ).first()
+        try:
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+            role = request.POST.get("role")
+            active = 0
+            user = User.objects.filter(
+                username_field=username,
+                password_field=password,
+                role_field=role,
+                is_active = active 
+            ).first()
 
-        if user is not None:
-            request.session['user_id'] = user.id
-            request.session['username'] = user.username_field
-            request.session['role'] = user.role_field
-            request.session['active'] = user.is_active
+            if user is not None and user.is_active == 0:
+                request.session['user_id'] = user.id
+                request.session['username'] = user.username_field
+                request.session['role'] = user.role_field
+                request.session['active'] = user.is_active
 
-            if role == "admin" and username.startswith("admin") and active == 0:
-                return redirect("admin_panel_url_name")
+                if role == "admin" and username.startswith("admin") and active == 0:
+                    return redirect("admin_panel_url_name")
 
-            elif active == 0 :
-                return render(request, "student_dashboard.html")
+                else:
+                    return render(request, "student_dashboard.html")
+        except Exception as e:
 
-        else:
             return render(
-                request,
-                "login.html",
-                {"error": "Invalid username or password"}
-            )
+                    request,
+                    "login.html",
+                    {"error": "Invalid username or password"}
+                )
+
 
     return redirect("login_url_name")
 
@@ -254,12 +256,42 @@ AH College of Arts and Science""",recipient_list=[email],from_email="harishabdul
             return redirect("admin_panel_url_name")
 
 def delete_student_fun(request,id):
-    student_active = Student_info.objects.get(id = id)
-    user_active = student_active.username_field
-    student_active.is_active = -1
-    user_active.is_active = -1
-    student_active.save()
-    user_active.save()
-    return redirect("admin_panel_url_name")
+    try:
+        student_active = Student_info.objects.get(id = id)
+        user_active = student_active.username_field
+        student_active.is_active = -1
+        user_active.is_active = -1
+        student_active.save()
+        user_active.save()
 
+        messages.success(request, f"Student Deleted successfully")
+        return redirect("admin_panel_url_name")
+    
+    except Exception as e:
+        messages.error(request, "Student Not-Deleted")
+        return redirect("admin_panel_url_name")
 
+def recover_student_fun(request, id):
+    try:
+        student_active = Student_info.objects.get(id = id)
+        user_active = student_active.username_field
+        student_active.is_active = 0
+        user_active.is_active = 0
+        student_active.save()
+        user_active.save()
+        messages.success(request, f"Student Recovered successfully")
+        return redirect("deleted_student_list_fun_url_name")
+    
+    except Exception as e:
+        messages.error(request, f"Student Not-Recovered")
+        return redirect("deleted_student_list_fun_url_name")
+
+def deleted_student_list_fun(request):
+
+    student_list = Student_info.objects.filter(is_active = -1)
+
+    if not student_list.exists(): 
+        messages.error(request,"No Student is Deleted")
+        return redirect("admin_panel_url_name")
+    else:
+        return render(request, "deleted-students.html",{"student_list":student_list})

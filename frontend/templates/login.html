@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="{% static 'css/login.css' %}" />
 {% endblock %}
 
+{% block logout %}{% endblock  %}
+
 {% block content %}
 <form action="{% url 'login_form_fun_url_name' %}" method="POST" class="card">
   {% csrf_token %}
